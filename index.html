@@ -22,11 +22,13 @@
 
     <a-assets>
       <img id="m00" src="./assets/img01.png">
-      
+	  <img id="m01" src="./assets/img02.jpg">
     </a-assets> 
 
     <a-marker type="barcode" value="0" size="1.5">
-      <a-image src="#m00" rotation="90 0 0" width="2" height="2"></a-image>
+      <a-image src="#m01" rotation="90 0 0" position="0 2 0" width="2" height="2"></a-image>
+	  <a-image src="#m01" rotation="90 0 0" position="0 0 0" width="2" height="2"></a-image>
+
 
       <!--
       <a-box color="#143F6B" depth="1" height="1" width="1"></a-box>
@@ -35,6 +37,7 @@
     </a-marker>
 
     <a-marker type="barcode" value="1" size="1.5">
+		<img id="m00" src="./assets/img01.png">
       <a-box color="#F55353" depth="1" height="1" width="1"></a-box>
       <a-text value="Marker 1" side="double" position="0 1.1 0" rotation="270 -90 0" align="center"></a-text>
     </a-marker>
