@@ -8,6 +8,127 @@
   <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js">
 
   </script>
+
+<script defer>
+  // https://github.com/nikolaiwarner/aframe-chromakey-material
+  AFRAME.registerShader('chromakey', {
+    schema: {
+      src: {type: 'map'},
+      color: {default: {x: 0.0, y: 1.0, z: 0.0}, type: 'vec3', is: 'uniform'},
+      chroma: {type: 'bool', is: 'uniform'},
+      transparent: {default: true, is: 'uniform'}
+    },
+
+    init: function (data) {
+
+      const videoEl = data.src;
+
+      document.addEventListener('click', () => {
+        videoEl.play();
+        const entity = document.querySelector("[sound]");
+        if (entity) entity.components.sound.playSound();
+      });
+
+      var videoTexture = new THREE.VideoTexture(data.src)
+      videoTexture.minFilter = THREE.LinearFilter
+      this.material = new THREE.ShaderMaterial({
+        uniforms: {
+          chroma: {
+            type: 'b',
+            value: data.chroma
+          },
+          color: {
+            type: 'c',
+            value: data.color
+          },
+          myTexture: {
+            type: 't',
+            value: videoTexture
+          }
+        },
+        vertexShader:
+          `
+          varying vec2 vUv;
+          
+          void main(void)
+          {
+            vUv = uv;
+            vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+            gl_Position = projectionMatrix * mvPosition;
+          }
+        `
+        ,
+        fragmentShader:
+          `
+            uniform sampler2D myTexture;
+            uniform vec3 color;
+            uniform bool chroma;
+            varying vec2 vUv;
+            
+            void main(void)
+            {
+              vec3 tColor = texture2D( myTexture, vUv ).rgb;
+              float a;
+              if(chroma == true){
+                 a = (length(tColor - color) - 0.5) * 7.0;
+              }
+              else {
+                a = 1.0;
+              }
+              
+              gl_FragColor = vec4(tColor, a);
+            }
+          `
+      })
+    },
+
+    update: function (data) {
+      this.material.color = data.color
+      this.material.src = data.src
+      this.material.transparent = data.transparent
+    },
+  });
+</script>
+
+<script defer>
+  AFRAME.registerComponent("audiohandler", {
+    init: function () {
+      this.trackedElements = document.querySelectorAll(
+        "a-marker[audiohandler]"
+      );
+       console.log(this.trackedElements);
+    },
+    tick: function () {
+      this.trackedElements.forEach((marker) => {
+       const vid = document.querySelector(
+          marker.attributes.vidReference.value
+        );
+       const sound = document.querySelector(
+          marker.attributes.audioReference.value
+        );
+        //console.log(vid, sound)
+        if (marker.object3D.visible) {
+          if (vid && vid.paused) {
+            vid.play();
+          }
+          if (sound && sound.paused) {
+            sound.play();
+          }
+        } else {
+          if (vid && !vid.paused) {
+            vid.pause();
+            vid.currentTime = 0;
+          }
+          if (sound && !sound.paused) {
+            //sound.pause();
+            //sound.currentTime = 0;
+          }
+        }
+      });
+    },
+  });
+
+</script>
 </head>
 
 
@@ -22,12 +143,20 @@
 
     <a-assets>
       <img id="m00" src="./assets/img01.png">
-	  <img id="m01" src="./assets/img02.jpg">
+	    <img id="m01" src="./assets/img02.jpg">
+      <img id="m02" src="./assets/1886.png">
+      <img id="m03" src="./assets/atlanta.jpg">
+      <img id="m04" src="./assets/laboratoire.png">
+
+
+      <video id="vid1" src="assets/animationlogo-Lena-Julia-Marie.mp4" autoplay="true" loop="true" preload="auto" controls="true"
+        muted="true" playsinline="" webkit-playsinline=""></video>
+      <audio id="sound1" src="assets/pembertons.mp3" preload="auto"></audio>
     </a-assets> 
 
     <a-marker type="barcode" value="0" size="1.5">
       <a-image src="#m01" rotation="90 0 0" position="0 2 0" width="2" height="2"></a-image>
-	  <a-image src="#m01" rotation="90 0 0" position="0 0 0" width="2" height="2"></a-image>
+	    <a-image src="#m01" rotation="90 0 0" position="0 0 0" width="2" height="2"></a-image>
 
 
       <!--
@@ -37,34 +166,33 @@
     </a-marker>
 
     <a-marker type="barcode" value="1" size="1.5">
-		<img id="m00" src="./assets/img01.png">
-      <a-box color="#F55353" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 1" side="double" position="0 1.1 0" rotation="270 -90 0" align="center"></a-text>
+		<a-image src="#m01" rotation="90 0 0" position="0 1 0" width="2" height="2"></a-image>
+    <a-image src="#m00" rotation="90 0 0" position="0 2 0" width="2" height="2"></a-image>
     </a-marker>
 
-    <a-marker type="barcode" value="2" size="1">
-      <a-box color="#FEB139" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 2" side="double" position="0 1.1 0" rotation="270 -90 0" align="center"></a-text>
+    <a-marker audiohandler  vidReference="#vid1" audioReference="null" type="barcode" value="2" size="1">
+      <a-entity material="shader: chromakey; src:#vid1; chroma:true; color: 1. 1. 1."
+        geometry="primitive: plane; width:  1; height:  1" position="0  0  0" rotation="360  0  0" side="double">
+      </a-entity>
+    </a-marker>
+<
+    <a-marker audiohandler audioReference="#sound1" vidReference="null" type="barcode" value="3" size="1">
+      <a-text value="sound" side="double" position="0 1.1 0" rotation="270 -90 0" align="center"></a-text>
     </a-marker>
 
-    <a-marker type="barcode" value="3" size="1">
-      <a-box color="#F6F54D" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 3" side="double" position="0 1.1 0" rotation="270 -90 0" align="center"></a-text>
+    <a-marker audiohandler  vidReference="#vid1" audioReference="#sound1" type="barcode" value="4" size="1">
+      <a-entity material="shader: chromakey; src:#vid1; chroma:true; color: 1. 1. 1."
+        geometry="primitive: plane; width:  1; height:  1" position="0  0  0" rotation="270  0  0" side="double">
+      </a-entity>
     </a-marker>
 
-    <a-marker type="barcode" value="4" size="1">
-      <a-box color="#56BBF1" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 4" side="double" position="0 1.1 0" rotation="270 0 0" align="center"></a-text>
-    </a-marker>
-
-    <a-marker type="barcode" value="5" size="1">
-      <a-box color="#99FFCD" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 5" side="double" position="0 1.1 0" rotation="270 -90 0" align="center"></a-text>
+    <a-marker type="barcode" value="5" size="0.5">
+      <a-image src="#m03" rotation="90 0 0" position="0 2 0" width="1.77" height="1"></a-image>
     </a-marker>
 
     <a-marker type="barcode" value="6" size="0.5">
-      <a-box color="#DC143C" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 6" side="double" position="0 1.1 0" rotation="270 90 0" align="center"></a-text>
+      <a-image src="#m04" rotation="90 0 0" position="0 2 0" width="2" height="2"></a-image>
+
     </a-marker>
 
     <a-marker type="barcode" value="7" size="0.5">
@@ -273,8 +401,7 @@
     </a-marker>
 
     <a-marker type="barcode" value="48" size="0.1">
-      <a-box color="#00008B" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 48" side="double" position="0 1.1 0" rotation="270 0 0" align="center"></a-text>
+      <a-image src="#m02" rotation="90 0 0" position="0 2 0" width="2" height="2"></a-image>      <a-text value="Marker 48" side="double" position="0 1.1 0" rotation="270 0 0" align="center"></a-text>
     </a-marker>
 
     <a-marker type="barcode" value="49" size="0.1">
