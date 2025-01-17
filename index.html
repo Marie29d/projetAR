@@ -27,6 +27,7 @@
         videoEl.play();
         const entity = document.querySelector("[sound]");
         if (entity) entity.components.sound.playSound();
+        this.el.children[0].setAttribute('visible', false)
       });
 
       var videoTexture = new THREE.VideoTexture(data.src)
@@ -97,7 +98,7 @@
         "a-marker[audiohandler]"
       );
       this.hasplayed = false
-       console.log(this.trackedElements);
+      console.log(this.trackedElements);
     },
     tick: function () {
       this.trackedElements.forEach((marker) => {
@@ -116,15 +117,19 @@
             sound.play();
             this.hasplayed = true
           }
+          else{
+            sound.pause();
+            sound.currentTime = 0;
+          }
         } else {
-          this.hasplayed = false
+         
           if (vid && !vid.paused) {
             vid.pause();
             vid.currentTime = 0;
           }
           if (sound && !sound.paused) {
-            //sound.pause();
-            //sound.currentTime = 0;
+            sound.pause();
+            sound.currentTime = 0;
           }
         }
       });
@@ -191,9 +196,12 @@
         <a-entity material="shader: chromakey; src:#vid1; chroma:false; color: 0. 0. 0."
           geometry="primitive: plane; width:  .8; height:  1" position="0  0  0" rotation="270  0  0" side="double">
         </a-entity>
+        <a-text value="Click Me !" scale='1 1 1' position='-0.4 0 0'></a-text>
     </a-marker>
 
     <a-marker audiohandler  vidReference="#vid1" audioReference="null" type="barcode" value="2" size="1">
+      
+      
       <a-entity material="shader: chromakey; src:#vid1; chroma:true; color: 1. 1. 1."
         geometry="primitive: plane; width:  1; height:  1" position="0  0  0" rotation="270  0  0" side="double">
       </a-entity>
