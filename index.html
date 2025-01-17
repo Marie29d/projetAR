@@ -97,7 +97,7 @@
       this.trackedElements = document.querySelectorAll(
         "a-marker[audiohandler]"
       );
-      this.hasplayed = false
+      //this.hasplayed = false
       console.log(this.trackedElements);
     },
     tick: function () {
@@ -113,14 +113,11 @@
           if (vid && vid.paused) {
             vid.play();
           }
-          if (sound && sound.paused && this.hasplayed == false) {
+          if (sound && sound.paused) {
             sound.play();
-            this.hasplayed = true
+           
           }
-          else{
-            sound.pause();
-            sound.currentTime = 0;
-          }
+          
         } else {
          
           if (vid && !vid.paused) {
@@ -128,8 +125,8 @@
             vid.currentTime = 0;
           }
           if (sound && !sound.paused) {
-            sound.pause();
-            sound.currentTime = 0;
+            //sound.pause();
+            //sound.currentTime = 0;
           }
         }
       });
@@ -176,9 +173,9 @@
 
 
 
-      <video id="vid1" src="./assets/John_Pemberton_3 2.mp4" autoplay="true" loop="true" preload="auto" controls="true"
+      <video id="vid1" src="./assets/John_Pemberton_3 2.mp4" autoplay="true" loop="false" preload="auto" controls="true"
         muted="true" playsinline="" webkit-playsinline=""></video>
-      <audio id="sound1" src="./assets/iamperberton.mp3" preload="auto"></audio>
+      <audio id="sound1" src="./assets/iamperberton.mp3" preload="auto" loop="false"></audio>
     </a-assets> 
 
     <a-marker type="barcode" value="0" size="1.5">
@@ -196,12 +193,10 @@
         <a-entity material="shader: chromakey; src:#vid1; chroma:false; color: 0. 0. 0."
           geometry="primitive: plane; width:  .8; height:  1" position="0  0  0" rotation="270  0  0" side="double">
         </a-entity>
-        <a-text value="Click Me !" scale='1 1 1' position='-0.4 0 0'></a-text>
+        <a-text value="Click to hear me" scale='1 1 1' position='-0.4 1 1'></a-text>
     </a-marker>
 
     <a-marker audiohandler  vidReference="#vid1" audioReference="null" type="barcode" value="2" size="1">
-      
-      
       <a-entity material="shader: chromakey; src:#vid1; chroma:true; color: 1. 1. 1."
         geometry="primitive: plane; width:  1; height:  1" position="0  0  0" rotation="270  0  0" side="double">
       </a-entity>
