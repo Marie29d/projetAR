@@ -152,6 +152,14 @@
       <img id="m07" src="./assets/FASTFOOD.png">
       <img id="m08" src="./assets/perenoel.jpg">
       <img id="m09" src="./assets/pemberton2.png">
+      <img id="m10" src="./assets/bouteille_ancienne.png">
+      <img id="m11" src="./assets/aplat_rouge.png">
+      <img id="m12" src="./assets/NOIXDECOLA.png">
+      <img id="m13" src="./assets/5CENTS.png">
+      <img id="m14" src="./assets/billets.jpg">
+      <img id="m15" src="./assets/dollar2.jpg">
+      <img id="m16" src="./assets/John_Pemberton.jpg">
+
 
 
 
@@ -188,11 +196,11 @@
       <a-text value="sound" side="double" position="0 1.1 0" rotation="270 -90 0" align="center"></a-text>
     </a-marker>
 
-    <a-marker audiohandler  vidReference="#vid1" audioReference="#sound1" type="barcode" value="4" size="1">
-      <a-entity material="shader: chromakey; src:#vid1; chroma:true; color: 1. 1. 1."
-        geometry="primitive: plane; width:  1; height:  1" position="0  0  0" rotation="270  0  0" side="double">
-      </a-entity>
+    <a-marker type="barcode" value="4" size="0.5">
+      <a-image src="#m16" rotation="90 90 0" position="0 2 0" width="1.77" height="1"></a-image>
     </a-marker>
+
+
 
     <a-marker type="barcode" value="5" size="0.5">
       <a-image src="#m03" rotation="90 90 0" position="0 2 0" width="1.77" height="1"></a-image>
@@ -243,8 +251,7 @@
     </a-marker>
 
     <a-marker type="barcode" value="15" size="0.5">
-      <a-box color="#FF00FF" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 15" side="double" position="0 1.1 0" rotation="270 -90 0" align="center"></a-text>
+      <a-image src="#m012" rotation="90 90 0" position="0 1 0" width="2" height="2"></a-image>
     </a-marker>
 
     <a-marker type="barcode" value="16" size="0.5">
@@ -263,8 +270,8 @@
     </a-marker>
 
     <a-marker type="barcode" value="19" size="0.5">
-      <a-box color="#800000" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 19" side="double" position="0 1.1 0" rotation="270 90 0" align="center"></a-text>
+      <a-image src="#m10" rotation="90 -90 0" position="0 1 0" width="2" height="2"></a-image>
+      <a-image src="#m11" rotation="90 -90 0" position="0 3 0" width="2" height="2"></a-image>
     </a-marker>
 
     <a-marker type="barcode" value="20" size="0.5">
@@ -283,12 +290,11 @@
     </a-marker>
 
     <a-marker type="barcode" value="23" size="0.25">
-      <a-box color="#FF0000" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 23" side="double" position="0 1.1 0" rotation="270 90 0" align="center"></a-text>
+      <a-image src="#m13" rotation="90 -90 0" position="0 1 0" width="2" height="2"></a-image>
     </a-marker>
 
     <a-marker type="barcode" value="24" size="0.25">
-      <a-image src="#m08" rotation="90 0 0" position="0 1 0" width="2" height="2"></a-image>
+      <a-image src="#m08" rotation="90 -90 0" position="0 1 0" width="2" height="2"></a-image>
       <a-image src="#m09" rotation="90 -90 0" position="0 3 0" width="2" height="2"></a-image>
     </a-marker>
 
@@ -457,8 +463,7 @@
     </a-marker>
 
     <a-marker type="barcode" value="58" size="0.1">
-      <a-box color="#FFA500" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 58" side="double" position="0 1.1 0" rotation="270 0 0" align="center"></a-text>
+      <a-image src="#m14" rotation="90 -90 0" position="0 1 0" width="2" height="2"></a-image>
     </a-marker>
 
     <a-marker type="barcode" value="59" size="0.1">
@@ -477,8 +482,7 @@
     </a-marker>
 
     <a-marker type="barcode" value="62" size="0.1">
-      <a-box color="#800080" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 62" side="double" position="0 1.1 0" rotation="270 180 0" align="center"></a-text>
+      <a-image src="#m15" rotation="90 0 0" position="0 1 0" width="2" height="2"></a-image>
     </a-marker>
 
     <a-marker type="barcode" value="63" size="0.1">
