@@ -96,6 +96,7 @@
       this.trackedElements = document.querySelectorAll(
         "a-marker[audiohandler]"
       );
+      this.hasplayed = false
        console.log(this.trackedElements);
     },
     tick: function () {
@@ -111,10 +112,12 @@
           if (vid && vid.paused) {
             vid.play();
           }
-          if (sound && sound.paused) {
+          if (sound && sound.paused && this.hasplayed == false) {
             sound.play();
+            this.hasplayed = true
           }
         } else {
+          this.hasplayed = false
           if (vid && !vid.paused) {
             vid.pause();
             vid.currentTime = 0;
@@ -185,7 +188,7 @@
     </a-marker>
 
     <a-marker audiohandler audioReference="#sound1" vidReference="#vid1" type="barcode" value="1" size="0.6">
-        <a-entity material="shader: chromakey; src:#vid1; chroma:true; color: 0. 0. 0."
+        <a-entity material="shader: chromakey; src:#vid1; chroma:false; color: 0. 0. 0."
           geometry="primitive: plane; width:  .8; height:  1" position="0  0  0" rotation="270  0  0" side="double">
         </a-entity>
     </a-marker>
