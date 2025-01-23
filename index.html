@@ -177,7 +177,10 @@
 
       <video id="vid1" src="./assets/John_Pemberton_3 2.mp4" autoplay="true" loop="false" preload="auto" controls="true"
         muted="true" playsinline="" webkit-playsinline=""></video>
+      <video id="vid2" src="./assets/VIDEO 1-13.mp4" autoplay="true" loop="false" preload="auto" controls="true"
+        muted="true" playsinline="" webkit-playsinline=""></video>
       <audio id="sound1" src="./assets/iamperberton.mp3" preload="auto" loop="false"></audio>
+      <audio id="sound2" src="./assets/SON 1-13.m4a" preload="auto" loop="false"></audio>
     </a-assets> 
 
     <a-marker type="barcode" value="0" size="1.5">
@@ -254,10 +257,12 @@
       <a-text value="Marker 12" side="double" position="0 0 0" rotation="270 0 0" align="center"></a-text>
     </a-marker>
 
-    <a-marker type="barcode" value="13" size="0.5">
-      <a-box color="#FFFF00" depth="1" height="1" width="1"></a-box>
-      <a-text value="Marker 13" side="double" position="0 0 0" rotation="270 0 0" align="center"></a-text>
-    </a-marker>
+    <a-marker audiohandler audioReference="#sound2" vidReference="#vid2" type="barcode" value="13" size="0.6">
+      <a-entity material="shader: chromakey; src:#vid2; chroma:false; color: 0. 0. 0."
+        geometry="primitive: plane; width:  .8; height:  1" position="0  0  0" rotation="270  0  0" side="double">
+      </a-entity>
+      <a-text value="Click to hear me" rotation="270 0 0" scale='1 1 1' position='-0.4 1 1'></a-text>
+  </a-marker>
 
     <a-marker type="barcode" value="14" size="0.5">
       <a-image src="#m20" rotation="90 0 0" position="0 0 0" width="2" height="2"></a-image>
