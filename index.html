@@ -226,6 +226,9 @@
       <img id="m45" src="./assets/2-mainrose.png">
       <img id="m46" src="./assets/3-bouches.png">
       <img id="m47" src="./assets/4-fondturqoise.png">
+      <img id="m48" src="./assets/1- bouleàfacette.png">
+      <img id="m49" src="./assets/2-photocanette.png">
+      <img id="m50" src="./assets/3- fondorange.png">
 
 
       <video id="vid1" src="./assets/VIDEO 2.mp4" autoplay="true" loop="false" preload="auto" controls="true"
@@ -254,11 +257,12 @@
       <a-image src="#jp" rotation="270 -90 0" width="1.6" height="2"></a-image>
     </a-marker>
 
-    <a-marker audiohandler  vidReference="#vid1" audioReference="null" type="barcode" value="2" size="1">
-      <a-entity material="shader: chromakey; src:#vid1; chroma:true; color: 1. 1. 1."
-        geometry="primitive: plane; width:  1; height:  1" position="0  0  0" rotation="270  0  0" side="double">
-      </a-entity>
+    <a-marker type="barcode" value="2" size="0.5">
+      <a-image src="#m48" rotation="270 -90 0" position="0 0 0" width="1" height="1.4"></a-image>
+      <a-image src="#m49" rotation="270 -90 0" position="0 0.25 0" width="1" height="1.4"></a-image>
+      <a-image src="#m50" rotation="270 -90 0" position="0 0.5 0" width="1" height="1.4"></a-image>
     </a-marker>
+
 
     <a-marker type="barcode" value="3" size="0.5">
       <a-image src="#m47" rotation="270 -90 0" position="0 0 0" width="1" height="1.2"></a-image>
