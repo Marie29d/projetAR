@@ -114,6 +114,9 @@
     },
 
     update: function (data) {
+      //const videoEl = data.src;
+
+
       this.material.color = data.color
       this.material.src = data.src
       this.material.transparent = data.transparent
@@ -122,10 +125,10 @@
 </script>
 
 <script defer>
-  AFRAME.registerComponent("audiohandler", {
+  AFRAME.registerComponent("videohandler", {
     init: function () {
       this.trackedElements = document.querySelectorAll(
-        "a-marker[audiohandler]"
+        "a-marker[videohandler]"
       );
       //this.hasplayed = false
       console.log(this.trackedElements);
@@ -135,18 +138,13 @@
        const vid = document.querySelector(
           marker.attributes.vidReference.value
         );
-       const sound = document.querySelector(
-          marker.attributes.audioReference.value
-        );
+       
         //console.log(vid, sound)
         if (marker.object3D.visible) {
           if (vid && vid.paused) {
             vid.play();
           }
-          if (sound && sound.paused) {
-            sound.play();
-           
-          }
+         
           
         } else {
          
@@ -154,10 +152,7 @@
             vid.pause();
             vid.currentTime = 0;
           }
-          if (sound && !sound.paused) {
-            //sound.pause();
-            //sound.currentTime = 0;
-          }
+          
         }
       });
     },
@@ -226,7 +221,7 @@
       <img id="m45" src="./assets/2-mainrose.png">
       <img id="m46" src="./assets/3-bouches.png">
       <img id="m47" src="./assets/4-fondturqoise.png">
-      <img id="m48" src="./assets/1- bouleàfacette.png">
+     
       <img id="m49" src="./assets/2-photocanette.png">
       <img id="m50" src="./assets/3- fondorange.png">
       <img id="m51" src="./assets/1-statue.png">
@@ -300,9 +295,11 @@
 
       <video id="vid1" src="./assets/VIDEO 2.mp4" autoplay="true" loop="false" preload="auto" controls="true"
         muted="true" playsinline="" webkit-playsinline=""></video>
-      <video id="vid2" src="./assets/VIDEO 1-13.mp4" autoplay="true" loop="false" preload="auto" controls="true"
+      <video id="vid2" src="./assets/VIDEO1-13_1.mp4" autoplay="true" loop="false" preload="auto" controls="true"
         muted="true" playsinline="" webkit-playsinline=""></video>
       <video id="vid3" src="./assets/63 VIDEO.mp4" autoplay="true" loop="false" preload="auto" controls="true"
+        muted="true" playsinline="" webkit-playsinline=""></video>
+      <video id="vid4" src="./assets/Composition1.mp4" autoplay="true" loop="false" preload="auto" controls="true"
         muted="true" playsinline="" webkit-playsinline=""></video>
       <audio id="sound1" src="./assets/SON2.mp3" preload="auto" loop="false"></audio>
       <audio id="sound2" src="./assets/AUDIO1-13.mp3" preload="auto" loop="false"></audio>
@@ -383,7 +380,7 @@
       <a-image src="#m51" rotation="270 0 0" position="0 0.5 0" width="1" height="0.7"></a-image>  
     </a-marker>
 
-    <a-marker audiohandler audioReference="#sound2" vidReference="#vid2" type="barcode" value="13" size="0.6">
+    <a-marker audio videohandler  vidReference="#vid2" audioReference="#sound2"  type="barcode" value="13" size="0.6">
       <a-entity material="shader: chromakey; src:#vid2; chroma:false; color: 0. 0. 0."
         geometry="primitive: plane; width:  .8; height:  1" position="0  0  0" rotation="270  0  0" side="double">
       </a-entity>
@@ -526,8 +523,8 @@
     </a-marker>
 
     <a-marker type="barcode" value="41" size="0.25">
-      <a-image src="#m05" rotation="270 -90 0" position="0 0 0" width="2" height="2"></a-image>      <a-text value="Marker 48" side="double" position="0 1.1 0" rotation="270 0 0" align="center"></a-text>
-      <a-text value="Marker 41" side="double" position="0 1.1 0" rotation="270 -90 0" align="center"></a-text>
+      <a-image src="#m05" rotation="270 -90 0" position="0 0 0" width="2" height="2"></a-image>      
+      <a-text value="Marker 41" side="double" position="0 1.1 0" rotation="270 -90 0" 
     </a-marker>
 
     <a-marker type="barcode" value="42" size="0.1">
@@ -535,7 +532,7 @@
     </a-marker>
 
     <a-marker type="barcode" value="43" size="0.1">
-      <a-image src="#m07" rotation="270 0 0" position="0 0 0" width="2" height="2"></a-image>      <a-text value="Marker 48" side="double" position="0 1.1 0" rotation="270 0 0" align="center"></a-text>
+      <a-image src="#m07" rotation="270 0 0" position="0 0 0" width="2" height="2"></a-image>      
     </a-marker>
 
     <a-marker type="barcode" value="44" size="0.1">
@@ -562,9 +559,11 @@
       <a-text value="Marker 48" side="double" position="0 0 0" rotation="270 0 0" align="center" color="red"></a-text>
     </a-marker>
 
-    <a-marker  type="barcode" value="49" size="1">
-      <a-entity material="shader: chromakey; src:#vid1; chroma:false; color: 1. 1. 1."
-        geometry="primitive: plane; width:  1; height:  1" position="0  0  0" rotation="270  0  0" side="double">
+
+   
+    <a-marker videohandler  vidReference="#vid4" type="barcode" value="49" size="1">
+      <a-entity material="shader: chromakey; src:#vid4; chroma:true; color: 0.059 0.29 0."
+        geometry="primitive: plane; width:  1.5; height:  1.5" position="0  0  0" rotation="270  90  0" side="double">
       </a-entity>
     </a-marker>
 
@@ -628,7 +627,7 @@
       <a-image src="#m15" rotation="90 0 0" position="0 0 0" width="2.37" height="1"></a-image>
     </a-marker>
 
-    <a-marker audiohandler audioReference="#sound3" vidReference="#vid2" type="barcode" value="63" size="0.6">
+    <a-marker audio videohandler audioReference="#sound3" vidReference="#vid2" type="barcode" value="63" size="0.6">
       <a-entity material="shader: chromakey; src:#vid2; chroma:false; color: 0. 0. 0."
         geometry="primitive: plane; width:  .8; height:  1" position="0  0  0" rotation="270  0  0" side="double">
       </a-entity>
